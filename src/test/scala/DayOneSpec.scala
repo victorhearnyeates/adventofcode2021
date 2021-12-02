@@ -1,7 +1,7 @@
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class DayOne extends AnyFlatSpec with Matchers {
+class DayOneSpec extends AnyFlatSpec with Matchers {
 
   "DistanceMeasurer" should "keep count of distance increases" in {
     val distances = List(1,2,3,4)

@@ -1,7 +1,3 @@
-class DayOne {
-
-}
-
 object DistanceMeasurer {
   def windowValues(list: List[Int], sliding: Int): List[Int] = {
     list.sliding(sliding).map(_.sum).toList
