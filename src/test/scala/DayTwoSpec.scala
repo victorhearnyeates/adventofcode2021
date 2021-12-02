@@ -41,7 +41,7 @@ class DayTwoSpec extends AnyFlatSpec with Matchers {
     val movements = ProblemUtils.movements.map(Mover.parse)
     val position = Movement.move(Position.init(), 0, movements)
 
-    position shouldBe Position.init()
+    position shouldBe Position(2105,757618)
   }
 
   "Position" should "combine" in {
