@@ -1,6 +1,4 @@
-class DayOne {
-
-}
+package dayone
 
 object DistanceMeasurer {
   def windowValues(list: List[Int], sliding: Int): List[Int] = {
