@@ -3,17 +3,25 @@ package dayfour
 import scala.util.matching.Regex
 
 object BoardUtils {
+
+  type Board = Array[Array[String]]
+
   def processBoards(allBoards: Vector[Board], allNumbers: List[String]): Board = allNumbers match {
     case Nil => allBoards.head
     case h :: t =>
+      var bingo = false
+      var bingoBoard: Option[Board] = None
       val allUpdated = allBoards.map { board =>
         val (updated, isBingo) = updateCheck(board, h)
-        if (isBingo) processBoards(Vector(updated), Nil) else updated
+        bingo = isBingo
+        bingoBoard = Some(updated)
+        updated
       }
-      processBoards(allUpdated, t)
+      if (bingo) {
+        println(h)
+        processBoards(Vector(bingoBoard.get), Nil)
+      } else processBoards(allUpdated, t)
   }
-
-  type Board = Array[Array[String]]
 
   def parseBoards(boards: List[String]): Vector[Board] = {
     boards.grouped(6).map(list => parseToBoard(list.take(5))).toVector
@@ -28,8 +36,8 @@ object BoardUtils {
     newBoard.zipWithIndex.foreach { case(array, y) =>
       array.zipWithIndex.foreach { case(num, x) =>
         if (num == str && isNotIndex(x, y)) {
-          newBoard(5)(x) = update(input(x)(5))
-          newBoard(y)(5) = update(input(5)(y))
+          newBoard(5)(x) = update(input(5)(x))
+          newBoard(y)(5) = update(input(y)(5))
           newBoard(y)(x) = s"*${newBoard(y)(x)}*"
         }
       }
@@ -37,12 +45,12 @@ object BoardUtils {
     newBoard
   }
 
-  def update(str: String) = {
+  def update(str: String): String = {
     val number = str.replaceAll("\\*", "").toInt + 1
     if (number > 5) "5" else s"$number"
   }
 
-  def isNotIndex(x: Int, y: Int) = !((x == 5) || (y == 5))
+  def isNotIndex(x: Int, y: Int): Boolean = !((x == 5) || (y == 5))
 
   private def updateCheck(input: Board, str: String): (Board, Boolean) = {
     val updated = updateNumber(input, str)
@@ -65,5 +73,9 @@ object BoardUtils {
       }
     }
     board
+  }
+
+  def dropIndices(board: Board): Board = {
+    board.dropRight(1).map(array => array.dropRight(1))
   }
 }
