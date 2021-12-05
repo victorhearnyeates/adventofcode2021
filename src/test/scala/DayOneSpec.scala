@@ -1,6 +1,7 @@
 import dayone.DistanceMeasurer
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import utils.ProblemUtils
 
 class DayOneSpec extends AnyFlatSpec with Matchers {
 

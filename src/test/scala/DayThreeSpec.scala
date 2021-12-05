@@ -2,6 +2,7 @@ import daythree.Parser
 import daythree.Parser._
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import utils.ProblemUtils
 
 class DayThreeSpec extends AnyFlatSpec with Matchers {
 
