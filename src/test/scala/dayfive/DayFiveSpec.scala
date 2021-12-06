@@ -21,13 +21,22 @@ class DayFiveSpec extends AnyFlatSpec with Matchers {
     linesParsed.length shouldBe 500
   }
 
-  it should "give me a list of all the coordinates that appear more than once" in {
+  it should "give me a list of all the horizontal and vertical coordinates that appear more than once" in {
     val linesTxt = ProblemUtils.lines
     val linesParsed = LinesUtils.linesParser(linesTxt)
     val filtered = linesParsed.filterNot(_.isDiagonal)
 
-    val asCoordinates = filtered.flatMap(LineSegment.points)
+    val asCoordinates = filtered.flatMap(LineSegment.straightPoints)
     val grouped = asCoordinates.groupBy(i => i).filter(_._2.length > 1)
-    grouped.size shouldBe 0
+    grouped.size shouldBe 5698
+  }
+
+  it should "give me a list of all coordinates that appear more than once" in {
+    val linesTxt = ProblemUtils.lines
+    val linesParsed = LinesUtils.linesParser(linesTxt)
+
+    val asCoordinates = linesParsed.flatMap(LineSegment.points)
+    val grouped = asCoordinates.groupBy(i => i).filter(_._2.length > 1)
+    grouped.size shouldBe 15463
   }
 }
