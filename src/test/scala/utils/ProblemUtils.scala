@@ -11,4 +11,6 @@ object ProblemUtils {
   lazy val binaries = Source.fromResource("daythree/input.txt").getLines().toList
 
   lazy val lines = Source.fromResource("dayfive/input.txt").getLines().toList
+
+  lazy val lanternFish = Source.fromResource("daysix/input.txt").getLines().toList
 }
