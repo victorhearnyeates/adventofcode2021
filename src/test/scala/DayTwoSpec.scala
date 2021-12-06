@@ -1,6 +1,7 @@
 import daytwo.{Down, Forward, Movement, Mover, Position, Up}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import utils.ProblemUtils
 
 class DayTwoSpec extends AnyFlatSpec with Matchers {
 
