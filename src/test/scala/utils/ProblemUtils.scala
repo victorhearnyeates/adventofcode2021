@@ -10,7 +10,13 @@ object ProblemUtils {
 
   lazy val binaries = Source.fromResource("daythree/input.txt").getLines().toList
 
+  lazy val boards = Source.fromResource("dayfour/boards.txt").getLines().toVector
+
+  lazy val numbers = Source.fromResource("dayfour/numbers.txt").getLines().toVector
+
   lazy val lines = Source.fromResource("dayfive/input.txt").getLines().toList
 
   lazy val lanternFish = Source.fromResource("daysix/input.txt").getLines().toList
+
+  lazy val crabs = Source.fromResource("dayseven/positions.txt").getLines().toList.mkString("").strip()
 }
