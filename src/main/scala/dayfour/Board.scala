@@ -17,3 +17,4 @@ case class Board(rows: Vector[Vector[Int]]) {
 object Board {
   def empty() = Board(Vector(Vector()))
 }
+

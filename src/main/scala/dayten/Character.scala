@@ -9,13 +9,6 @@ case class Opening(char: Char) extends Character {
     val str: String = char.toString + c2.char
     List("{}", "[]", "<>", "()").contains(str)
   }
-
-  def matching(): Char = char match {
-    case '{' => '}'
-    case '[' => ']'
-    case '<' => '>'
-    case '(' => ')'
-  }
 }
 case class Closing(char: Char) extends Character
 
