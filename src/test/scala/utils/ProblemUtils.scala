@@ -21,4 +21,6 @@ object ProblemUtils {
   lazy val crabs = Source.fromResource("dayseven/positions.txt").getLines().toList.mkString("").strip()
 
   lazy val digits = Source.fromResource("dayeight/input.txt").getLines().toList
+
+  lazy val corrupted = Source.fromResource("dayten/input.txt").getLines().toList
 }
