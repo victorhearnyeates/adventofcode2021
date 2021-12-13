@@ -5,7 +5,7 @@ object DistanceMeasurer {
     list.sliding(sliding).map(_.sum).toList
   }
 
-  def increases(distances: List[Int]) = {
+  def increases(distances: List[Int]): Int = {
     def go(list: List[Int], acc: Int, last: Int): Int = list match {
       case Nil => acc
       case h :: t if h > last => go(t, acc + 1, h)

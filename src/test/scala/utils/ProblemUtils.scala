@@ -23,4 +23,6 @@ object ProblemUtils {
   lazy val digits = Source.fromResource("dayeight/input.txt").getLines().toList
 
   lazy val corrupted = Source.fromResource("dayten/input.txt").getLines().toList
+
+  lazy val dots = Source.fromResource("daythirteen/input.txt").getLines().toList
 }
