@@ -36,7 +36,7 @@ class ProbeSpec extends AnyFlatSpec with Matchers {
 
     val highest = possibleYs.mapFilter(y => Probe(Nil, targetYs).path(y))
 
-    highest shouldBe Nil // y = 104
+    highest.max shouldBe 5460 // y = 104
   }
 
   "moveTilEnd" should "compute everything to x or y limit" in {
@@ -44,7 +44,7 @@ class ProbeSpec extends AnyFlatSpec with Matchers {
 
     val output = position.moveTilEnd(100, -100)
 
-    val expected = Set(Position(-33,27,-1,-8), Position(-19,49,-5,-4), Position(-6,54,-7,-2), Position(14,34,1,6), Position(-24,-36,5,-14), Position(11,-116,8,-19), Position(-31,-11,3,-12), Position(15,40,0,5), Position(-19,-50,6,-15), Position(-13,52,-6,-3), Position(-6,-81,8,-17), Position(-24,45,-4,-5), Position(-34,10,1,-10), Position(-33,0,2,-11), Position(-28,-23,4,-13), Position(12,27,2,7), Position(2,-98,9,-18), Position(-13,-65,7,-16), Position(14,49,-2,3), Position(-28,40,-3,-6), Position(-34,19,0,-9), Position(9,54,-4,1), Position(12,52,-3,2), Position(15,45,-1,4), Position(5,55,-5,0), Position(5,10,4,9), Position(0,55,-6,-1), Position(-31,34,-2,-7), Position(9,19,3,8))
+    val expected = Set(Position(15,54,0,1,(0,0)), Position(15,54,0,-2,(0,0)), Position(15,52,0,-3,(0,0)), Position(15,49,0,-4,(0,0)), Position(15,-116,0,-19,(0,0)), Position(15,40,0,5,(0,0)), Position(15,-23,0,-13,(0,0)), Position(15,-36,0,-14,(0,0)), Position(15,34,0,-7,(0,0)), Position(15,45,0,-5,(0,0)), Position(15,0,0,-11,(0,0)), Position(15,-65,0,-16,(0,0)), Position(15,55,0,0,(0,0)), Position(15,10,0,-10,(0,0)), Position(15,-50,0,-15,(0,0)), Position(12,27,2,7,(0,0)), Position(14,34,1,6,(0,0)), Position(15,52,0,2,(0,0)), Position(15,-81,0,-17,(0,0)), Position(5,10,4,9,(0,0)), Position(15,-98,0,-18,(0,0)), Position(15,19,0,-9,(0,0)), Position(15,45,0,4,(0,0)), Position(15,27,0,-8,(0,0)), Position(15,49,0,3,(0,0)), Position(15,40,0,-6,(0,0)), Position(15,55,0,-1,(0,0)), Position(9,19,3,8,(0,0)), Position(15,-11,0,-12,(0,0)))
 
     output shouldBe expected
   }
@@ -57,12 +57,12 @@ class ProbeSpec extends AnyFlatSpec with Matchers {
 
     val combinations = possibleXs.flatMap(x => possibleYs.map(y => (x,y))).toSet
 
-    val allPositions = combinations.map{case (x, y) => Position(0, 0, x, y)}
+    val allPositions = combinations.map{case (x, y) => Position(0, 0, x, y, (x, y))}
 
     val positions = allPositions.flatMap(_.moveTilEnd(250, -105)).filter{
       position => targetXs.contains(position.x) && targetYs.contains(position.y)
-    }
+    }.groupBy(_.start)
 
-    positions.size shouldBe 0 //3627 too high
+    positions.size shouldBe 3618 //3627 too high
   }
 }

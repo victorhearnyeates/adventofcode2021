@@ -4,10 +4,10 @@ import scala.annotation.tailrec
 
 object Probe {
 
-  case class Position(x: Int, y: Int, vX: Int, vY: Int) {
+  case class Position(x: Int, y: Int, vX: Int, vY: Int, start: (Int, Int) = (0,0)) {
     def move(): Position = {
-      val newVX = if (vX < 0) vX + 1 else vX -1
-      Position(x + vX, y + vY, newVX, vY - 1)
+      val newVX = if (vX < 0) vX + 1 else if (vX == 0) 0 else vX -1
+      Position(x + vX, y + vY, newVX, vY - 1, start)
     }
 
     def moveTilEnd(xLimit: Int, yLimit: Int, acc: Set[Position] = Set.empty): Set[Position] = {
