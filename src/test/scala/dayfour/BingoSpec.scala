@@ -37,7 +37,7 @@ class BingoSpec extends AnyFlatSpec with Matchers {
   }
 
   it should "parse boards" in {
-    val inLines = boards.split("\n").toVector.map(_.strip())
+    val inLines = boards.split("\n").toVector.map(_.trim())
     val board = BoardParser.parseToBoards(inLines)
     board.length shouldBe 3
     board(2).rows.last shouldBe Vector(2, 0, 12, 3, 7)
@@ -57,17 +57,17 @@ class BingoSpec extends AnyFlatSpec with Matchers {
         |20 11 10 24  4
         |14 21 16 12  6
         |
-        |14 21 17 24  4
-        | 1  1  1  1  1
-        |18  8 23 26 20
-        |22 11 13  6  5
-        | 2  0 12  3  7
+        |14 21 17 24  3
+        | 1  5  1  1  1
+        |18  8 23 26  3
+        |22 11 13  6  2
+        | 2  0 12  3  3
         |""".stripMargin
 
-    val inLines = boards.split("\n").toVector.map(_.strip())
+    val inLines = boards.split("\n").toVector.map(_.trim())
     val board = BoardParser.parseToBoards(inLines)
 
-    val expected = Board(Vector(Vector(14, 21, 17, 24, 4), Vector(-1, -1, -1, -1, -1), Vector(18, 8, 23, 26, 20), Vector(22, 11, 13, 6, 5), Vector(2, 0, 12, 3, 7)))
+    val expected = Board(Vector(Vector(14, 21, 17, 24, -1), Vector(-1, 5, -1, -1, -1), Vector(18, 8, 23, 26, -1), Vector(22, 11, 13, 6, -1), Vector(-1, 0, 12, -1, -1)))
 
     BoardParser.bingoBoard(board, List(1,2,3,4)) shouldBe expected
   }
@@ -91,7 +91,45 @@ class BingoSpec extends AnyFlatSpec with Matchers {
   it should "give the sum in the first problem" in {
     val numbers = NumberParser.parser(ProblemUtils.numbers.mkString(""))
     val boards = BoardParser.parseToBoards(ProblemUtils.boards)
+    val bingoBoard = BoardParser.bingoBoard(boards, numbers)
 
-    BoardParser.bingoBoard(boards, numbers).sum() shouldBe 955
+    bingoBoard.sum() shouldBe 911
+  }
+
+  "lastBingoBoard" should "return the last bingo board" in {
+    val boards =
+      """22 13 17 11  0
+        | 8  2 23  4 24
+        |21  9 14 16  7
+        | 6 10  3 18  5
+        | 1 12 20 15 19
+        |
+        | 3 1  4  2 2
+        | 2 1 3 7  5
+        | 9  1  7 5 3
+        | 2 1 0 4  4
+        | 4 1 6 2  6
+        |
+        |4 1 7 4  3
+        | 1 5 1  1  1
+        |1  4 3 2  3
+        |2 1 3  6  2
+        | 2  0 1  3  3
+        |""".stripMargin
+
+    val inLines = boards.split("\n").toVector.map(_.trim())
+    val board = BoardParser.parseToBoards(inLines)
+
+    val expected = Board(Vector(Vector(22, 13, 17, 11, 0), Vector(-1, -1, 23, -1, 24), Vector(21, -1, 14, 16, -1), Vector(-1, -1, -1, 18, -1), Vector(-1, 12, 20, 15, 19)))
+
+    BoardParser.lastBingoBoard(board, List(1,2,3,4,5,6,7,8,9,10)) shouldBe expected
+  }
+
+  it should "give the sum in the second problem" in {
+    val numbers = NumberParser.parser(ProblemUtils.numbers.mkString(""))
+    val boards = BoardParser.parseToBoards(ProblemUtils.boards)
+    val bingoBoard = BoardParser.lastBingoBoard(boards, numbers)
+
+    bingoBoard.sum() shouldBe 911
   }
 }

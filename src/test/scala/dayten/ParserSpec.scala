@@ -25,7 +25,7 @@ class ParserSpec extends AnyFlatSpec with Matchers {
   }
 
   it should "return part one" in {
-    val inputs = ProblemUtils.corrupted.map(_.strip().map(_.toCharacter()).toList)
+    val inputs = ProblemUtils.corrupted.map(_.trim().map(_.toCharacter()).toList)
     val processed = inputs.map(Parser.lineToParse(_).swap).filter(_.isRight).map(c => Parser.points(c.toOption.get))
     processed.sum shouldBe 339411
   }
@@ -44,7 +44,7 @@ class ParserSpec extends AnyFlatSpec with Matchers {
   }
 
   it should "return part two" in {
-    val inputs = ProblemUtils.corrupted.map(_.strip().map(_.toCharacter()).toList)
+    val inputs = ProblemUtils.corrupted.map(_.trim().map(_.toCharacter()).toList)
     val processed = inputs.map(Parser.lineToParse(_)).filter(_.isRight).map(_.toOption.get)
     val points = processed.map(Parser.points(_)).sorted
     val index = (points.length / 2)

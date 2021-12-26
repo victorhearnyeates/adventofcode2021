@@ -9,7 +9,7 @@ case class Board(rows: Vector[Vector[Int]]) {
     rows.map(allNegative).reduce(_ || _) || rows.transpose.map(allNegative).reduce(_ || _)
   }
 
-  def sum(): Int = rows.map(_.filter(_ >= 0)).map(_.sum).sum
+  def sum(): Int = rows.flatMap(_.filter(_ >= 0)).sum
 
   private def allNegative(row: Vector[Int]): Boolean = row.forall(num => num < 0)
 }

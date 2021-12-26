@@ -18,7 +18,7 @@ object ProblemUtils {
 
   lazy val lanternFish = Source.fromResource("daysix/input.txt").getLines().toList
 
-  lazy val crabs = Source.fromResource("dayseven/positions.txt").getLines().toList.mkString("").strip()
+  lazy val crabs = Source.fromResource("dayseven/positions.txt").getLines().toList.mkString("").trim()
 
   lazy val digits = Source.fromResource("dayeight/input.txt").getLines().toList
 
